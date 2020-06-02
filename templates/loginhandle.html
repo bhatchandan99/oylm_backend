@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>LOGIN</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  </head>
+  <body>
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+
+        </div>
+    {% endfor %}
+    <form action="" method="post">
+      {% csrf_token %}
+      <label for="uname" >USERNAME:</label>
+      <input type="text" name="uname" id="uname" placeholder="enter registered username" required><br><br>
+
+      <label for="pass" >Password:</label>
+      <input type="password" id="pass" name="pass" placeholder="password" required><br>
+      <br>
+
+      <input type="submit" name="login" value="Login">
+<br><br><br>
+    </form>
+
+  </body>
+</html>
