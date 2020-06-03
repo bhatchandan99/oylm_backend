@@ -6,13 +6,13 @@ from passlib.hash import pbkdf2_sha256
 from django.contrib.auth import authenticate, login, logout
 
 
-# @login_required
+
 def loginhandle(request):
     if(request.method=='POST'):
-        username=request.POST['uname']
+        username=request.POST['email']
         password=request.POST['pass']
-        user=authenticate(username=username, password=password)
-        if(user is not None):
+        user=authenticate(email=username, password=password)
+        if(user):
             if(user.is_active):
                 login(request,user)
                 messages.success(request,"Successfully logged in")
@@ -53,16 +53,17 @@ def register(request):
         password =request.POST['password']
         standard = request.POST['standard']
 
-        enc_password = pbkdf2_sha256.encrypt(password, rounds=8000, salt_size=10)
         if(Student.objects.filter(email=email).exists()):
             messages.warning(request,"Email already exists")
         else:
             if(Student.objects.filter(username=username).exists()):
                 messages.warning(request,"Username already exists")
             else:
-                context=Student(ref_code = ref_code ,first_name=first_name,username=username, last_name=last_name,parent_name = parent_name,dob = dob,country= country,address= address,school=school,school_state= school_state,school_address= school_address,school_city= school_city,pincode=pincode,number=number,email=email,standard= standard,password= password)
+                context=Student(ref_code = ref_code ,first_name=first_name,username=username, last_name=last_name,parent_name = parent_name,dob = dob,country= country,address= address,school=school,school_state= school_state,school_address= school_address,school_city= school_city,pincode=pincode,number=number,email=email,standard= standard)
+                context.set_password(password)
                 context.save()
                 messages.success(request,"Student Registered successfully")
+                return render(request,"loginhandle.html")
             # user.is_active=False
             # user.save()
 

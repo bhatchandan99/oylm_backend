@@ -5,7 +5,15 @@
     <title>LOGIN</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<style>
 
+.btn{
+  border: 2px solid black;
+  text-decoration: none;
+  background-color: grey;
+  color: black;
+}
+</style>
   </head>
   <body>
     {% for message in messages %}
@@ -16,8 +24,18 @@
     {% endfor %}
     <form action="" method="post">
       {% csrf_token %}
-      <label for="uname" >USERNAME:</label>
-      <input type="text" name="uname" id="uname" placeholder="enter registered username" required><br><br>
+      
+
+
+
+        {% if user.is_authenticated %}
+    
+         <h3> User logged in as:{{request.user.username}}</h3>
+          <a href="logouthandle/" class="btn">Logout</a>
+
+          {% else %}
+          <label for="uname" >REGISTERED EMAIL:</label>
+      <input type="text" name="email" id="email" placeholder="enter registered email" required><br><br>
 
       <label for="pass" >Password:</label>
       <input type="password" id="pass" name="pass" placeholder="password" required><br>
@@ -25,6 +43,8 @@
 
       <input type="submit" name="login" value="Login">
 <br><br><br>
+           {% endif %}
+
     </form>
 
   </body>
