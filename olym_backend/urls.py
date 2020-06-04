@@ -21,4 +21,6 @@ urlpatterns = [
     path("", include('student_table.urls')),
 
 
+
+
 ]
