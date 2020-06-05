@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from .models import Student
 from django.contrib import messages
 from django.core.mail import send_mail
-from passlib.hash import pbkdf2_sha256
+from django.conf import settings
+# from passlib.hash import pbkdf2_sha256
 from django.contrib.auth import authenticate, login, logout
 
 
