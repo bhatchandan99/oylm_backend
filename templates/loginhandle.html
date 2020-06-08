@@ -13,6 +13,14 @@
   background-color: grey;
   color: black;
 }
+
+.first{
+  margin-left: 400px;
+}
+
+.second{
+  margin-left: 600px;
+}
 </style>
   </head>
   <body>
@@ -22,17 +30,39 @@
 
         </div>
     {% endfor %}
+    
     <form action="" method="post">
       {% csrf_token %}
-      
 
 
 
         {% if user.is_authenticated %}
-    
-         <h3> User logged in as:{{request.user.username}}</h3>
-          <a href="logouthandle/" class="btn">Logout</a>
 
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Home</span></a>
+        </li>
+        <li>
+          <a class="nav-link" href="subscriptions/">Subscriptions</span></a>
+        </li>
+        <li>
+        <a class="first" >LOGGED IN AS-{{request.user.username}}</a>
+        </li>
+        <li>
+         <a class="second" href="logouthandle/">Logout</a> 
+         </li>
+       </ul> 
+  </div>
+</nav>
+
+    
           {% else %}
           <label for="uname" >REGISTERED EMAIL:</label>
       <input type="text" name="email" id="email" placeholder="enter registered email" required><br><br>

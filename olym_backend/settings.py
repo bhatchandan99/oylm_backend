@@ -133,11 +133,15 @@ SESSION_COOKIE_AGE = 120 #
 AUTH_USER_MODEL = 'student_table.Student'
 
 
+#for gmail
+#EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = '***'
+EMAIL_HOST_PASSWORD = '**'
 
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS=True
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_USE_TLS=True
-EMAIL_PORT=587
-EMAIL_HOST_USER = email
-EMAIl_HOST_PASSWORD = password
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#DEFAULT_FROM_EMAIL= "bhatchandan99@gmail.com"
