@@ -29,6 +29,22 @@ class Student(AbstractUser):
     def __str__(self):
         return str(self.id)
 
+
+
+class Olympiad(models.Model):
+    id=models.AutoField(primary_key=True)
+    name=models.CharField(max_length=150)
+    # questions=models.TextField()
+    # answer=models.TextField()
+    rupees=models.IntegerField(default=100)
+    subs=models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return str(self.name)
+
+
+
     # def verify_password(self,raw_password):
     #     return pbkdf2_sha256.verify(raw_password,self.password)
 

@@ -1,24 +1,20 @@
 from django.shortcuts import render,redirect
-from .models import Student
+from .models import Student, Olympiad
 from django.contrib import messages
 from django.core.mail import send_mail
-from passlib.hash import pbkdf2_sha256
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
-
-
-
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.views.generic import View, UpdateView
-
+from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-
-from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.template.loader import render_to_string
 from student_table.tokens import account_activation_token
+from django.contrib.auth.models import User
+
+
 
 def loginhandle(request):
     if(request.method=='POST'):
@@ -44,6 +40,33 @@ def logouthandle(request):
 def home(request):
     return render(request,"home.html")
 
+
+    
+    
+def subscriptions(request):
+    if(request.method=='POST'):
+        first1=request.POST[1]
+        first2=request.POST[2]
+        first3=request.POST[3]
+        first4=request.POST[4]
+        first5=request.POST[5]
+        first6=request.POST[6]
+        con1=Olympiad(id=1,subs=first1)
+        con1.save()
+        con2=Olympiad(id=2,subs=first2)
+        con2.save()
+        con3=Olympiad(id=3,subs=first3)
+        con3.save()
+        con4=Olympiad(id=4,subs=first4)
+        con4.save()
+        con5=Olympiad(id=4,subs=first5)
+        con5.save()
+        con6=Olympiad(id=6,subs=first6)
+        con6.save()
+        
+
+
+    return render(request,"subscriptions.html")
 
 
 def register(request):
@@ -84,25 +107,19 @@ def register(request):
                 'uid': urlsafe_base64_encode(force_bytes(context.pk)),
                 'token': account_activation_token.make_token(context),
                 })
-                send_mail(subject, message,'bhatchandan99@gmail.com',['chandan.me17@iitp.ac.in','bhatchandan99@gmail.com',],fail_silently=False,)
+                send_mail(subject, message,settings.EMAIL_HOST_USER,email,fail_silently=False,)
 
 
                 messages.success(request, ('Please Confirm your email to complete registration.'))
                 return render(request,"loginhandle.html")
 
-            # user.is_active=False
-            # user.save()
-
+        
 
 
 
     return render(request,'register.html')
 
-from django.contrib.auth import login
-from django.contrib.auth.models import User
-from django.utils.encoding import force_text
-from django.utils.http import urlsafe_base64_decode
-from student_table.tokens import account_activation_token
+
 
 class ActivateAccount(View):
 
