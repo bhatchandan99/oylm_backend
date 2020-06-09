@@ -7,7 +7,7 @@ from passlib.hash import pbkdf2_sha256
 
 class Student(AbstractUser):
     id=models.AutoField(primary_key=True)
-    ref_code = models.CharField(null=False,default="000",max_length=20)
+    ref_code = models.CharField(default="000",max_length=20)
     parent_name = models.CharField(max_length=50)
     dob = models.DateField(null=True)
     country = CountryField()
@@ -33,20 +33,19 @@ class Student(AbstractUser):
 
 class Olympiad(models.Model):
     id=models.AutoField(primary_key=True)
-    name=models.CharField(max_length=150)
-    # questions=models.TextField()
-    # answer=models.TextField()
-    rupees=models.IntegerField(default=100)
-    subs=models.BooleanField(default=False)
-
+    student = models.ForeignKey("Student", on_delete=models.CASCADE, default=1)
+    mathsolym=models.BooleanField(default=False)
+    scienceolym=models.BooleanField(default=False)
+    englisholym=models.BooleanField(default=False)
+    reasoningolym=models.BooleanField(default=False)
+    cyberolym=models.BooleanField(default=False)
+    internationalspell=models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.name)
+        return str(self.id)
+    
+    
 
 
 
-    # def verify_password(self,raw_password):
-    #     return pbkdf2_sha256.verify(raw_password,self.password)
-
-
-# Create your models here.
+    

@@ -45,33 +45,24 @@ def home(request):
     
 def subscriptions(request):
     if(request.method=='POST'):
-        first1=request.POST[1]
-        first2=request.POST[2]
-        first3=request.POST[3]
-        first4=request.POST[4]
-        first5=request.POST[5]
-        first6=request.POST[6]
-        con1=Olympiad(id=1,subs=first1)
-        con1.save()
-        con2=Olympiad(id=2,subs=first2)
-        con2.save()
-        con3=Olympiad(id=3,subs=first3)
-        con3.save()
-        con4=Olympiad(id=4,subs=first4)
-        con4.save()
-        con5=Olympiad(id=4,subs=first5)
-        con5.save()
-        con6=Olympiad(id=6,subs=first6)
-        con6.save()
-        
-
+        student = request.user
+        mathsolym=request.POST.get('mathsolym', False)
+        # print(request.POST)
+        scienceolym=request.POST.get('scienceolym',False )
+        englisholym=request.POST.get('englisholym', False)
+        reasoningolym=request.POST.get('reasoningolym', False)
+        cyberolym=request.POST.get('cyberolym', False)
+        internationalspell=request.POST.get('internationalspell', False)
+        context=Olympiad(student=student, mathsolym=mathsolym, scienceolym=scienceolym, englisholym=englisholym, reasoningolym=reasoningolym, cyberolym=cyberolym, internationalspell=internationalspell)
+        context.save()
 
     return render(request,"subscriptions.html")
 
 
 def register(request):
     if(request.method=='POST'):
-        ref_code = request.POST['ref_code']
+        ref_code = request.POST.get('ref_code', '000')
+        # print(ref_code, "ref_Code")
         first_name=request.POST['first_name']
         last_name=request.POST['last_name']
         username= request.POST['username']
@@ -95,22 +86,32 @@ def register(request):
             if(Student.objects.filter(username=username).exists()):
                 messages.warning(request,"Username already exists")
             else:
-                context=Student(ref_code = ref_code ,first_name=first_name,username=username, last_name=last_name,parent_name = parent_name,dob = dob,country= country,address= address,school=school,school_state= school_state,school_address= school_address,school_city= school_city,pincode=pincode,number=number,email=email,standard= standard)
-                context.set_password(password)
+                student_context=Student(ref_code = ref_code ,first_name=first_name,username=username, last_name=last_name,parent_name = parent_name,dob = dob,country= country,address= address,school=school,school_state= school_state,school_address= school_address,school_city= school_city,pincode=pincode,number=number,email=email,standard= standard)
+                student_context.set_password(password)
+                student_context.save()
+
+                mathsolym=request.POST.get('mathsolym', False)
+                print(request.POST)
+                scienceolym=request.POST.get('scienceolym',False )
+                englisholym=request.POST.get('englisholym', False)
+                reasoningolym=request.POST.get('reasoningolym', False)
+                cyberolym=request.POST.get('cyberolym', False)
+                internationalspell=request.POST.get('internationalspell', False)
+                context=Olympiad(student=student_context, mathsolym=mathsolym, scienceolym=scienceolym, englisholym=englisholym, reasoningolym=reasoningolym, cyberolym=cyberolym, internationalspell=internationalspell)
                 context.save()
 
-                current_site = get_current_site(request)
-                subject = 'Activate Your MySite Account'
-                message = render_to_string('account_activation_email.html', {
-                'user': context,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(context.pk)),
-                'token': account_activation_token.make_token(context),
-                })
-                send_mail(subject, message,settings.EMAIL_HOST_USER,email,fail_silently=False,)
+                # current_site = get_current_site(request)
+                # subject = 'Activate Your MySite Account'
+                # message = render_to_string('account_activation_email.html', {
+                # 'user': context,
+                # 'domain': current_site.domain,
+                # 'uid': urlsafe_base64_encode(force_bytes(context.pk)),
+                # 'token': account_activation_token.make_token(context),
+                # })
+                # send_mail(subject, message,settings.EMAIL_HOST_USER,email,fail_silently=False,)
 
 
-                messages.success(request, ('Please Confirm your email to complete registration.'))
+                # messages.success(request, ('Please Confirm your email to complete registration.'))
                 return render(request,"loginhandle.html")
 
         
