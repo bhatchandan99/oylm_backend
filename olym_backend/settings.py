@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_countries',
+    'quiz',
 ]
 # settings.AUTH_USER_MODEL = 'student_table.User'
 
