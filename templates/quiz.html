@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+<body>
+    <p>Welcome to Quiz Page</p>
+    <div id="container">
+        <video autoplay="true" id="videoElement">
+        
+        </video>
+    </div>
+    <script>
+    var video = document.querySelector("#videoElement");
+    
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          video.srcObject = stream;
+        })
+        .catch(function (err0r) {
+          console.log("Something went wrong!");
+        });
+    }
+    </script>
+
+    <div>
+      <form action="{% url 'quiz' %}" method="post">
+      {% csrf_token %}
+      <p>Ques :  </p><input type="text" name="Question">
+      <p>Option1 :</p><input type="text" name="Option1">
+      <br>
+      <p>Option2 :</p>
+      <input type="text" name="Option2">
+      <br>
+      <p>Option3 :</p>
+      <input type="text" name="Option3">
+      <br>
+      <p>Option4 :</p>
+      <input type="text" name="Option4">
+      <br>
+      <p>Correct Answer :</p>
+      <input type="text" name="Corrans">
+      <button type="submit">Submit</button>
+      </form>
+    </div>
+    
+</body>
+</html>
